@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster - Advanced Task Management</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">🎯 TaskMaster</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
+                <li><a href="#" onclick="showPage('tasks')">Tasks</a></li>
+                <li><a href="#" onclick="showPage('goals')">Goals</a></li>
+                <li><a href="#" onclick="showPage('add-task')">Add Task</a></li>
+                <li><a href="#" onclick="showPage('settings')">Settings</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>Welcome to TaskMaster</h1>
+                <p>Your ultimate task management solution for staying organized and productive</p>
+                <a href="#" onclick="showPage('dashboard')" class="btn btn-primary">Go to Dashboard</a>
+                <a href="#" onclick="showPage('add-task')" class="btn btn-secondary">Start Adding Tasks</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">📊 Dashboard</h1>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">📝</div>
+                    <div class="stat-info">
+                        <h3 id="total-tasks">0</h3>
+                        <p>Total Tasks</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">✅</div>
+                    <div class="stat-info">
+                        <h3 id="completed-tasks">0</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">⏳</div>
+                    <div class="stat-info">
+                        <h3 id="progress-tasks">0</h3>
+                        <p>In Progress</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white;">⚠️</div>
+                    <div class="stat-info">
+                        <h3 id="overdue-tasks">0</h3>
+                        <p>Overdue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Page -->
+    <div id="tasks" class="page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">✅ Tasks</h1>
+            <div class="kanban-board">
+                <div class="kanban-column" data-status="todo">
+                    <div class="column-header">
+                        <span>📋 To Do</span>
+                        <span class="column-badge" id="todo-count">0</span>
+                    </div>
+                    <div class="task-list" id="todo-list"></div>
+                </div>
+                <div class="kanban-column" data-status="progress">
+                    <div class="column-header">
+                        <span>⏳ In Progress</span>
+                        <span class="column-badge" id="progress-count">0</span>
+                    </div>
+                    <div class="task-list" id="progress-list"></div>
+                </div>
+                <div class="kanban-column" data-status="completed">
+                    <div class="column-header">
+                        <span>✅ Completed</span>
+                        <span class="column-badge" id="completed-count">0</span>
+                    </div>
+                    <div class="task-list" id="completed-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goals Page -->
+    <div id="goals" class="page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">🎯 Goals</h1>
+            <button class="btn btn-primary" onclick="addGoal()" style="margin-bottom: 2rem;">Add New Goal</button>
+            <div class="goals-grid" id="goals-list"></div>
+        </div>
+    </div>
+
+    <!-- Add Task Page -->
+    <div id="add-task" class="page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">➕ Add New Task</h1>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Task Title</label>
+                        <input type="text" id="task-title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-deadline">Deadline</label>
+                        <input type="date" id="task-deadline" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority" class="form-control">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-status">Initial Status</label>
+                        <select id="task-status" class="form-control">
+                            <option value="todo">To Do</option>
+                            <option value="progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settings" class="page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">⚙️ Settings</h1>
+            <div class="settings-section">
+                <h3>🎨 Appearance</h3>
+                <div class="form-group">
+                    <label>Theme</label>
+                    <button class="btn btn-secondary" onclick="toggleTheme()">Toggle Dark Mode</button>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h3>🗑️ Data Management</h3>
+                <button class="btn" style="background: var(--danger-color); color: white;" onclick="clearAllData()">Clear All Tasks</button>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">This will permanently delete all your tasks and goals.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
